@@ -1,0 +1,13 @@
+# folders
+.history/
+node_modules/
+dist/
+build/
+# coverage/
+
+# files
+# .nyc_output
+.DS_Store
+package-lock.json
+.eslintcache
+.stylelintcache
