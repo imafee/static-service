@@ -7,8 +7,8 @@ const { banner, footer } = require('./brand.cjs');
 module.exports = {
   input: 'src/index.js',
   output: {
-    file: 'dist/esm.min.js',
-    format: 'es',
+    file: 'dist/bundle.min.cjs',
+    format: 'cjs',
     sourcemap: true,
     banner: banner,
     footer: footer,

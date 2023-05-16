@@ -7,8 +7,8 @@ const { banner, footer } = require('./brand.cjs');
 module.exports = {
   input: 'src/index.js',
   output: {
-    file: 'dist/commonjs.min.js',
-    format: 'cjs',
+    file: 'dist/bundle.min.mjs',
+    format: 'es',
     sourcemap: true,
     banner: banner,
     footer: footer,
@@ -17,7 +17,7 @@ module.exports = {
     babel({
       babelrc: true,
       babelHelpers: 'runtime',
-      // exclude: 'node_modules/**', // 不分析和转化node_moduels包的代码
+      // exclude: 'node_modules/**',
     }),
     nodeResolve({ preferBuiltins: true }),
     commonjs(),

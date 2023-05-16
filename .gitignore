@@ -3,6 +3,7 @@
 node_modules/
 dist/
 build/
+/package # npm pack files
 # coverage/
 
 # files
