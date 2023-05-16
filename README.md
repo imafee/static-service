@@ -1,31 +1,30 @@
-# packageName
+# static-service
 
-(Image Placeholder.)
-The packageName introduction shortly.
+![badge-release](https://img.shields.io/static/v1?label=&labelColor=gray&message=semantic-release&color=gray&style=flat-square&logo=semantic-release&logoColor=white&link=https://github.com&link=https://npmjs.org) ![badge-commit](https://img.shields.io/static/v1?label=&labelColor=gray&message=conventional-commits&color=gray&style=flat-square&logo=conventionalcommits&logoColor=white&link=https://github.com&link=https://npmjs.org) ![badge-nodejs](https://img.shields.io/static/v1?label=nodejs&labelColor=gray&message=14&color=gray&style=flat-square&logo=node.js&logoColor=white&link=https://github.com&link=https://npmjs.org) ![badge-github-latest](https://img.shields.io/static/v1?logo=github&logoColor=white&label=github@latest&labelColor=gray&message=1.0.0&color=green&style=flat-square&link=https://)
+![poster](doc/img/poster.png)
+`static-service` is a zero-configuration command-line static HTTP server, and also a high-performance middleware.
+It is powerful enough for production,local development,testing and easy to learn usage.
 
-- What problem has been solved.
-- What are the technical highlights.
-- How is the user experience
-
-Compatibility
-
-- language feature
-  - ECMAScript 2015+ (ES6+)
-- runtime feature
-  - Nodejs runtime
-    - Node.js version: 14+
-    - support module format: [es,commonjs,umd]
-    <!-- - Browser runtime
-    - Chrome 67+
-    - Edge 17+
-    - Firefox 60+
-    - Safari 11+
-    - support module format: [es,umd] -->
-
-Installation
+## Running program in CLI
 
 ```shell
-npm install --save yourPackageName
-// install peer dependencies
-npm install --save core-js@3
+# as binary
+npm install --global static-service # Global installing to use
+static-service [path] [options] # By default，visit http://localhost:8080 to view your server
 ```
+
+[path] defaults to ./public if the folder exists, and ./ otherwise.
+
+see [options](doc/option.md)
+
+## Running middleware in Nodejs
+
+```shell
+npm install --save static-service # add to npm package.dependency
+```
+
+see [interfaces](doc/interface.md)
+
+## License
+
+see [MIT License]("./LICENSE")
