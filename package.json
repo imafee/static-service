@@ -35,7 +35,7 @@
   ],
   "type": "module",
   "bin": {
-    "static-service1": "bin/cli.cjs"
+    "static-service": "bin/index.cjs"
   },
   "main": "dist/bundle.min.mjs",
   "exports": {
@@ -43,9 +43,8 @@
     "./cjs": "./dist/bundle.min.cjs"
   },
   "files": [
-    "bin/other.cjs",
-    "dist/bundle.min.cjs",
-    "dist/*.map"
+    "bin/**/*",
+    "dist/**/*"
   ],
   "config": {
     "commitizen": {
@@ -88,11 +87,13 @@
     "@babel/core": "^7.21.8",
     "@babel/plugin-transform-runtime": "^7.21.4",
     "@babel/preset-env": "^7.21.5",
+    "@babel/runtime-corejs3": "^7.21.5",
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
     "@commitlint/cz-commitlint": "^17.5.0",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-terser": "^0.4.1",
     "commitizen": "^4.3.0",
@@ -108,7 +109,8 @@
     "standard-version": "^9.5.0"
   },
   "dependencies": {
-    "core-js": "^3.30.1",
+    "chalk": "^5.2.0",
+    "commander": "^10.0.1",
     "inquirer": "^8.2.5"
   }
 }
