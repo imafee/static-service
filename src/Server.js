@@ -1,6 +1,7 @@
 import http from 'node:http';
-import autoOpen from './helper/openUrl.js';
 import serverConfig from './const/serverConfig.js';
+import autoOpen from './helper/openUrl.js';
+import route from './helper/route.js';
 
 export class Server {
   constructor(env) {
@@ -9,14 +10,12 @@ export class Server {
   start() {
     const { host, port } = this.config;
     const server = http.createServer((req, res) => {
-      // TODO
-      res.statusCode = 404;
-      res.end('hello world!');
+      route(req, res, this.config);
     });
     server.listen(port, host, () => {
       const { programName, arg } = this.config.env;
       const { log, dir } = console;
-      const addr = `http://${host}:${port}`;
+      const addr = `http://${host}:${port}/${arg}`;
       autoOpen(addr);
       log(`Starting up ${programName}, serving ${arg}`);
       log(`Available on:

@@ -13,6 +13,7 @@ module.exports = {
     banner: banner,
     footer: footer,
   },
+  copy: { assets: 'assets' },
   plugins: [
     babel({
       babelrc: true,
