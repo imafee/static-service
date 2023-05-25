@@ -2,10 +2,12 @@ const commonjs = require('@rollup/plugin-commonjs');
 const nodeResolve = require('@rollup/plugin-node-resolve');
 const { babel } = require('@rollup/plugin-babel');
 const terser = require('@rollup/plugin-terser');
+const json = require('@rollup/plugin-json');
+const copy = require('rollup-plugin-copy');
 const { banner, footer } = require('./brand.cjs');
 
 module.exports = {
-  input: 'src/index.js',
+  input: 'src/api.js',
   output: {
     file: 'dist/bundle.min.mjs',
     format: 'es',
@@ -13,8 +15,10 @@ module.exports = {
     banner: banner,
     footer: footer,
   },
-  copy: { assets: 'assets' },
   plugins: [
+    copy({
+      targets: [{ src: 'assets/**/*', dest: 'dist/assets' }],
+    }),
     babel({
       babelrc: true,
       babelHelpers: 'runtime',
@@ -22,6 +26,7 @@ module.exports = {
     }),
     nodeResolve({ preferBuiltins: true }),
     commonjs(),
+    json(),
     terser(),
   ],
   // external: [/@babel\/runtime-corejs\d+/],

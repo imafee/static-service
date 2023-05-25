@@ -1,6 +1,7 @@
 import http from 'node:http';
+import path from 'node:path';
 import serverConfig from './const/serverConfig.js';
-import autoOpen from './helper/openUrl.js';
+import shellOpen from './helper/openUrl.js';
 import route from './helper/route.js';
 
 export class Server {
@@ -15,13 +16,13 @@ export class Server {
     server.listen(port, host, () => {
       const { programName, arg } = this.config.env;
       const { log, dir } = console;
-      const addr = `http://${host}:${port}/${arg}`;
-      autoOpen(addr);
+      const addr = `http://${host}:${port}${arg[0] === '/' ? '' : '/'}${arg}`;
+      shellOpen(addr);
       log(`Starting up ${programName}, serving ${arg}`);
       log(`Available on:
       ${addr}
       Hit CTRL-C to stop the server`);
-      dir(this.config);
+      // dir(this.config);
       // TODO
     });
   }

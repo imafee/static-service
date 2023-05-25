@@ -13,7 +13,7 @@
       "env": {
         "from": "app"
       },
-      "args": ["src", "--port", "8080"]
+      "args": [".", "--port", "8080"]
     },
     {
       "name": "bin",

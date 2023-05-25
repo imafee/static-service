@@ -1,11 +1,14 @@
+import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { program, Command } from 'commander';
+const importmeta = import.meta.url.match(/file:\/\/(.+)\/(.+)/);
+const [, __dirname, __filename] = importmeta;
 const { Server } = await import(
-  process.env.from === 'cli' ? '../dist/bundle.min.mjs' : '../src/index.js'
+  process.env.from === 'cli' ? '../dist/bundle.min.mjs' : '../src/api.js'
 );
 
-const data = readFileSync('./package.json');
-const { bin, main, name } = JSON.parse(data);
+const pkg = readFileSync(path.resolve(__dirname, '../package.json'));
+const { bin, main, name } = JSON.parse(pkg);
 process.ENV = {
   npmName: name,
   programName: Object.keys(bin)[0],
@@ -17,7 +20,7 @@ process.ENV = {
 program
   .version('0.0.0')
   .description('A simple zero-configuration command-line http static server.')
-  .argument('<servePath>', 'Serve path')
+  .argument('[servePath]', 'Serve path', '.')
   .option(
     '-c,--config <configPath...>',
     'Specify a config file to generate the service process'
