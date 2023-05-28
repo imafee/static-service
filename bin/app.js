@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { program, Command } from 'commander';
+
 const importmeta = import.meta.url.match(/file:\/\/(.+)\/(.+)/);
 const [, __dirname, __filename] = importmeta;
 const { Server } = await import(

@@ -1,9 +1,14 @@
 import fs, { promises as fspromise } from 'node:fs';
 import path from 'node:path';
 import mime from 'mime-types';
+import handlebars from 'handlebars';
 import { getGlobal } from './util.js';
 
 const { __dirname, __filename } = getGlobal(import.meta);
+const dirTpl = fs.readFileSync(
+  path.resolve(__dirname, '../tpl/directory.tpl'),
+  'utf8'
+);
 
 export default async function (req, res, config) {
   const nodePath = path.join(config.root, req.url);
@@ -25,11 +30,25 @@ export default async function (req, res, config) {
 
     const nodeStat = await fspromise.stat(nodePath);
     res.statusCode = 200;
-    res.statusCode = 'OK';
 
     if (nodeStat.isDirectory()) {
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      res.end('Directory,' + req.url);
+      const files = fs.readdirSync(nodePath);
+      const template = handlebars.compile(dirTpl);
+      const dir = path.relative(config.root, nodePath);
+      const cssreset = fs.readFileSync(
+        path.resolve(__dirname, '../assets/modern-normalize.css'),
+        'utf8'
+      );
+      const html = template({
+        title: path.basename(nodePath),
+        root: config.root,
+        files,
+        dir: dir ? `/${dir}` : '',
+        cssreset,
+      });
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/html');
+      res.end(html);
     } else if (nodeStat.isFile()) {
       const contentType = mime.lookup(nodePath);
       if (contentType === false) {
@@ -47,9 +66,8 @@ export default async function (req, res, config) {
       res.end('Unsupported resource format,' + req.url);
     }
   } catch (err) {
-    // Resource not exist
     res.statusCode = 404;
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.end(`"${nodePath}" not exist.\n${err.toString()}`);
+    res.end(`${err.toString()}\n"${nodePath}"`);
   }
 }

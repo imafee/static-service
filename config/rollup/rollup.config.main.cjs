@@ -17,7 +17,7 @@ module.exports = {
   },
   plugins: [
     copy({
-      targets: [{ src: 'assets/**/*', dest: 'dist/assets' }],
+      targets: [],
     }),
     babel({
       babelrc: true,
