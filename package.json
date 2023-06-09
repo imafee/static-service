@@ -1,7 +1,6 @@
 {
-  "private": true,
   "name": "static-service",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a simple zero-configuration command-line http server,can be used for command line or middleware",
   "author": "imafee <imafee@163.com> (https://)",
   "keywords": [
