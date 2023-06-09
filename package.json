@@ -65,8 +65,8 @@
   },
   "sideEffects": true,
   "scripts": {
-    "start": "node index.js",
-    "build": "npm-run-all eslint:check clean --parallel build:*",
+    "start": "NODE_ENV=development run-s clean build:dev",
+    "build": "npm-run-all clean --parallel build:*",
     "release": "standard-version",
     "commit": "git-cz",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
@@ -81,8 +81,8 @@
     "eslint:write": "eslint --cache --fix **/*.{js,cjs}",
     "commitlint:check": "commitlint --edit ${1}",
     "---------build---------": "",
-    "build:mainesm": "rollup -c config/rollup/rollup.config.main.esm.cjs",
-    "build:maincjs": "rollup -c config/rollup/rollup.config.main.cjs",
+    "build:esm": "rollup -c config/rollup/config.production.esm.cjs",
+    "build:dev": "rollup -c config/rollup/config.development.cjs -w",
     "clean": "rimraf dist",
     "---------npm pack---------------": "",
     "npm:pack": "npm pack",
@@ -99,6 +99,7 @@
     "@commitlint/cz-commitlint": "^17.5.0",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-image": "^3.0.2",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-terser": "^0.4.1",
@@ -113,6 +114,7 @@
     "rimraf": "^5.0.0",
     "rollup": "^3.21.3",
     "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-import-css": "^3.2.1",
     "standard-version": "^9.5.0"
   },
   "dependencies": {

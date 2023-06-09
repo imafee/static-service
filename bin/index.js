@@ -1,4 +1,3 @@
 #!/usr/bin/env node
-process.env.from = 'cli';
-// TODO
+process.env.NODE_ENV = 'production';
 import('./app.js');

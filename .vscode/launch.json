@@ -11,9 +11,10 @@
       "program": "${workspaceFolder}/bin/app.js",
       "skipFiles": ["<node_internals>/**"],
       "env": {
-        "from": "app"
+        "NODE_ENV": "development"
       },
-      "args": ["src/helper", "--port", "8080"]
+      // "args": ["src/helper", "--port", "8080"]
+      "args": ["src/helper/openUrl.js", "--port", "8080"]
     },
     {
       "name": "bin",

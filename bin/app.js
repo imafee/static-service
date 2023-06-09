@@ -2,20 +2,17 @@ import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { program, Command } from 'commander';
 
-const importmeta = import.meta.url.match(/file:\/\/(.+)\/(.+)/);
-const [, __dirname, __filename] = importmeta;
+const [, __dirname, __filename] = import.meta.url.match(/file:\/\/(.+)\/(.+)/);
 const { Server } = await import(
-  process.env.from === 'cli' ? '../dist/bundle.min.mjs' : '../src/api.js'
+  process.env.NODE_ENV === 'production'
+    ? '../dist/bundle.production.mjs'
+    : '../dist/bundle.development.mjs'
 );
 
 const pkg = readFileSync(path.resolve(__dirname, '../package.json'));
-const { bin, main, name } = JSON.parse(pkg);
-process.ENV = {
-  npmName: name,
-  programName: Object.keys(bin)[0],
-  binPath: Object.values(bin)[0],
-  mainPath: main,
-};
+const { bin, main: mainPath, name: npmName } = JSON.parse(pkg);
+const programName = Object.keys(bin)[0],
+  binPath = Object.values(bin)[0];
 
 // 定义commands
 program
@@ -38,7 +35,6 @@ program
     'Path to a .types file for custom mimetype definition(overwrite buildin config)'
   )
   .action((arg, opts) => {
-    const { npmName, programName, binPath, mainPath } = process.ENV;
     const server = new Server({
       env: { npmName, programName, binPath, mainPath, opts, arg },
     });
